@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -9,11 +10,12 @@ app.set("view engine", "ejs");
 let Items = [];
 
 app.get("/", function(req, res){
-    res.render("list", {newListItem: Items});
+    day = date();
+    res.render("list", {titleText: day, newListItem: Items});
 });
 
 app.post("/", function(req, res){
-    let data = req.body.newInput;
+    let data = req.body.newInput; 
     console.log(data);
 
     Items.push(data);
